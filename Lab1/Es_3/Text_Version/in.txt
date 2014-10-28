@@ -1,0 +1,1 @@
+Usage: ex4p1.c <file_input> <file_output>

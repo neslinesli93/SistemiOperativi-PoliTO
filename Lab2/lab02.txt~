@@ -1,0 +1,67 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 02
+--------------------------------------
+
+Esercizio 01
+Visualizzazione ricorsiva di un direttorio
+------------------------------------------
+
+Si scriva un programma in linguaggio C in grado di:
+- ricevere sulla riga di comando il path (assoluto o relativo) di
+  un direttorio
+- visualizzi *ricorsivamente" il contenuto di tale albero di
+  direttori.
+
+Si compili in programma mediante gcc e ne si verifichi il funzionamento
+confrontandone i risultati con il comando "ls -R".
+
+Suggerimento.
+Si scriva una procedura ricorsiva che generalizzi la visualizzazione
+non ricorsiva di un direttorio analizzata a lezione.
+Ci si ricordi di gestire esplicitamente i direttori denominati "." e
+".." per evitare ricorsioni infinite.
+
+
+
+Esercizio 02
+Compilazione e makefile
+-----------------------
+
+- Compilare il programma dell'esercizio precedente mediante
+  un Makefile contenente solo il target di compilazione.
+
+- Modificare il Makefile precedente aggiungendo il target
+  install, in grado di
+  a - creare un direttorio fratello a quello di lavoro e di
+      nome bin
+  b - spostare l'eseguibile creato in tale direttorio
+
+- Modificare il Makefile precedente aggiungendo il target clean,
+  che rimuove il file oggetto nel direttorio corrente
+
+- Modificare il Makefile precedente aggiungendo il target
+  distclean che oltre a fare quanto fa clean cancelli il
+  direttorio bin fratello di quello corrente e tutto il suo
+  contenuto.
+
+
+
+Esercizio 03
+Copia ricorsiva di un direttorio
+--------------------------------
+
+Si scriva un programma in linguaggio C in grado di:
+- ricevere sulla riga di comando due path (assoluti o relativi)
+- copi *ricorsivamente* il contenuto del direttorio individuato
+  dal primo path in un direttorio uguale con radice indicato
+  nel secondo path.
+
+Suggerimento.
+Data la procedura ricorsiva di visita di un albero di direttori
+ne crei una copia identica creando i direttori (mediante system
+call mkdir) e ricopiando i file (mediante system call open, read,
+write e close).
+
