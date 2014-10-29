@@ -1,0 +1,38 @@
+Maximum priority is always given to the father process.
+The rest  (children's order of printing after fork) seems quite random, but priority looks to be given in descending order to first child and its children, then to second child and its children, and so on.
+TODO: Test if output stays consistent between reboots (do not think so)
+
+Case a:
+Shell:2604, This: 3478
+Process #3478: 3
+Process #3479: 1
+Process #3480: 2
+Process #3480: 3
+Process #3479: 3
+Process #3481: 2
+Process #3481: 3
+=> P - F1 - F1,2 - F1,2 - F1 - F2 - F2
+
+Case b:
+Shell:2604, This: 3539
+Process #3539: 3
+Process #3539: 2
+Process #3539: 1
+Process #3540: 2
+Process #3540: 1
+Process #3542: 1
+Process #3541: 1
+=> P - P - P - F1 - F1 - F1,2 - F2
+
+Case c:
+=> P - ?? => Seems pretty random
+
+Case d:
+Shell:2604, This: 3576
+Process #3576: 2
+Process #3576: 1
+Process #3577: -2
+Process #3578: -1
+Process #3577: 1
+Process #3579: -1
+=> P - P - F1 - F1,1 - F1 - F2
