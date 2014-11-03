@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	
 	if (argc < 2)
 	{
-		fprintf(stdout, "Usage: %s <nElem\n", argv[0]);
+		fprintf(stdout, "Usage: %s <nElem>\n", argv[0]);
 		exit(1);
 	}
 
@@ -36,8 +36,6 @@ int main(int argc, char *argv[])
 			fprintf(stdout, "%d\n", v[i]);
 			break;
 		}
-		else if (!pid && i == (n-1))
-			break;
 	}
 
 	return 0;
