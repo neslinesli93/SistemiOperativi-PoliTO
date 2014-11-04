@@ -1,0 +1,4 @@
+mkdir ciao end
+touch ciao/test.txt end
+echo test >> ciao/test.txt end
+ls -lahR end

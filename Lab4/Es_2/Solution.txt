@@ -1,0 +1,1 @@
+Commands in the exec family are executed before system: it also happens if you swap the code inside the if/else branch

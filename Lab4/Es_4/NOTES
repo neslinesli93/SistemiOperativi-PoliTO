@@ -1,0 +1,2 @@
+In the version that uses "system" function, the program "cd" does not work.
+Same in the version that uses execvp, but it also breaks redirection operators like ">>"
