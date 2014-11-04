@@ -1,4 +1,4 @@
 mkdir test end
 touch test/test.txt end
-echo test | tee test/test.txt end
+echo test > test/test.txt end
 ls -lahR end

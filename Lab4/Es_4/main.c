@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
 	FILE *fp;
 	char **comm, *s, **exec_args, *token;
-	int i, j, flag, line, tmp_len, statVal;
+	int i, j, flag, line, tmp_len, status;
 	int max_lines = 100;
 
 	if (argc < 3)
@@ -30,7 +30,13 @@ int main(int argc, char *argv[])
 	}
 
 	flag = atoi(argv[2]);
+	if (flag < 0 || flag > 1)
+	{
+		fprintf(stdout, "Incorrect flag,run the program with no arguments for help\n");
+		exit(1);
+	}
 
+	
 	line = 0;
 
 	s = malloc(sizeof(char) * BUF_SIZE);
@@ -75,7 +81,7 @@ int main(int argc, char *argv[])
 			token = strtok (comm[i], " ");
 			while (token != NULL)
 			{
-				exec_args[j] = strdup(token);
+				exec_args[j] = token;
 				token = strtok(NULL, " ");
 				j++;
 			}
@@ -83,7 +89,7 @@ int main(int argc, char *argv[])
 
 			if (fork())
 			{
-				wait(&statVal);
+				wait(&status);
 			}
 			else
 			{
@@ -94,12 +100,15 @@ int main(int argc, char *argv[])
 				exit(0);
 			}
 		}
+
+		free(exec_args);
 	}
 
-	else
-	{
-		fprintf(stdout, "Incorrect flag,run the program with no arguments for help\n");
-	}
+	free(s);
+	for (i = 0; i < max_lines; i++)
+		free(comm[i]);
+	free(comm);
+
 	
 	return 0;
 }
