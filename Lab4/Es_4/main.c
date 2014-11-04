@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -86,8 +87,10 @@ int main(int argc, char *argv[])
 			}
 			else
 			{
-				execvp(exec_args[0], exec_args);
 				sleep(3);
+
+				execvp(exec_args[0], exec_args);
+				fprintf(stdout, "Exec error: %d\n", errno);
 				exit(0);
 			}
 		}
