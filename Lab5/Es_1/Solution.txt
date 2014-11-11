@@ -1,0 +1,5 @@
+Father forks six times, and its children die in two ways:
+a) Half of them immediately exit after the condition inside the while evaluates to false (fork() returns 0 to the child, and the child's pid to the father)
+b) Half of them "die" after the execlp; in fact the 'echo' function returns some value and that's it.
+
+It's curious that the father starts printing to stdout, then its child calls fflush and forces the output to be printed on screen, and eventually the father is (again) forced to print the remaining text to screen

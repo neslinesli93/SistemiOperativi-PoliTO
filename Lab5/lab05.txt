@@ -1,0 +1,156 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 05
+--------------------------------------
+
+
+
+Esercizio 01
+System call fork, exec, system 
+------------------------------
+
+Sia dato il seguente frammento di codice
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main () {
+  int i;
+
+  i = 0;
+  while (i<=2 && fork()){
+    if (!fork()) {
+      fprintf (stdout, "Running Exec ..."); fflush (stdout);
+      execlp ("echo", "echo", "i*i", (char *) 0);
+    }
+    i++;
+    fprintf (stdout, "Running System ..."); fflush (stdout);
+    system ("echo i+i");
+  }
+
+  return (0);
+} 
+
+Che cosa produce su video? Perche'?
+
+
+
+Esercizio 02
+Exchange-sort concorrente su file
+---------------------------------
+
+Premessa numero 1.
+L'algoritmo di ordinamento per scambio (exchange-sort o
+bubble-sort) ordina un vettore mediante il confronto di
+elementi contigui.
+La seguente e' una possibile implementazione:
+
+for (i=0; i<n-1; i++) {
+  for (j=0; j<n-1-i; j++) {
+    if (v[j] > v[j+1]) {
+       val = v[j];
+       v[j] = v[j+1];
+       v[j+1] = val;
+    }
+  }
+}
+
+Premessa numero 2.
+Un  file binario puo' essere scritto (funzione UNIX write) e letto
+(funzione unix read) in maniera casuale utilizzando la funzione
+lseek.
+Ad esempio
+lseek (fd, pos, SEEK_SET);
+posiziona il file pointer del file fd in modo che la successiva
+operazione di lettura/scrittura avvenga incominciando
+da pos caratteri a partire dall'inizio del file
+(SEEK_SET).
+Ad esempio, il programma
+lab05ex02.c
+una volta ricevuto il nome di un file sulla riga di comando,
+- scrive nel file il vettore vet di 12 elementi
+- rilegge il file a partire dall'ultima riga.
+
+Specifiche dell'esercizio.
+Si desidera implementare un algoritmo *concorrente* di bubble-sort
+che, leggendo e scrivendo dati su file, sia in grado di effettuare
+l'ordinamento del file stesso.
+Il programma (il padre):
+- riceve sulla riga di comando il nome di un file contenente
+  un numero predefinito n di interi.
+- a ogni iterazione del ciclo esterno "simula" l'azione
+  del ciclo interno generando (n-1-i) processi figlio.
+  Ognuno dei figli
+  - legge due elementi adiacenti nel file
+  - ne effettua lo scambio qualora necessario
+  - li riscrive su file
+  - si sincronizza con gli altri processi figli per
+    generare l'effetto globale di ordinamento (i.e.,
+    a ogni iterazione del ciclo esterno il valore
+    maggiore tra quelli rimanenti, viene spostato in
+    fondo al file)
+  - termina.
+
+Osservazioni.
+1. Operare su file e' indispensabile in quanto un processo padre
+   e uno figlio non condividono lo spazio di indirizzamento (quindi
+   ordinando un vettore, ordinerebbero di fatto vettori diversi).
+2. Il programma puo' essere generalizzato facendo in modo che il primo
+   degli interi memorizzati su file indichi il numero di interi
+   successivi presenti nel file.
+3. Notare come la gestione binaria dei file semplifichi il posizionamento
+   sul dato di posizione i.
+   Infatti, nel caso di file ASCII, il numero di caratteri occupati da un
+   intero non sarebbe costante, come nel caso di file binari, ma dipenderebbe
+   dal suo valore:
+   - 5 -> ascii = 1 carattere -> binario = sizeof (int) byte,
+   - 12345 -> ascii = 5 caratteri -> binario = sempre sizeof (int) byte
+   Inoltre nel primo caso occorrerebbe contare anche caratteri "aggiuntivi",
+   quali il '\n' di fine riga.
+
+
+Esercizio 03
+Utilizzo di segnali
+-------------------
+
+Scrivere un programma che mediante l'utilizzo di segnali
+sincronizzi due processi (un padre e un figlio) in modo che
+stampino alternativamente uno specifico messaggio.
+Il seguente e' un esempio di output:
+
+Child Woke-up
+Father Woke-up
+Child Woke-up
+Father Woke-up
+Child Woke-up
+Father Woke-up
+Child Woke-up
+Father Woke-up
+...
+
+Inserire sleep opportune per evitare corse critiche.
+
+
+
+Esercizio 04
+Segnali e comunicazione mediante file
+-------------------------------------
+
+Implementare un programma C che crea due figli, un produttore e un
+consumatore.
+Il figlio produttore legge da tastiera delle stringhe e le trasferisce
+al consumatore.
+Il figlio consumatore converte le stringhe in caratteri maiuscoli e
+le visualizza su standard output.
+L'introduzione della stringa "end" termina entrambi i processi figli
+nonche' il processo padre.
+Il trasferimento delle stringhe avvenga attraverso file.
+
+Suggerimenti
+1) Derivare la soluzione da quella dell'esercizio precedente
+2) I processi che comunicano non sono padre e figlio ma due "fratelli";
+   quindi occorre trovare un meccanismo affinche' entrambi conoscano
+   il PID dell'altro.

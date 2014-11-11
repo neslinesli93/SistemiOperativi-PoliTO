@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
 	stack = STinit();
 
-	// Ugly hack to unify the functions below
+	// Ugly hack to merge the functions below
 	STpush(stack, strdup(""));
 
 	recursiveCopy(stack, src_folder, dst_folder);

@@ -35,15 +35,15 @@ int main(int argc, char *argv[])
 		fprintf(stdout, "Incorrect flag,run the program with no arguments for help\n");
 		exit(1);
 	}
-
 	
-	line = 0;
-
+	// s represents a single command, and it can contains up to BUF_SIZE bytes
+	// comm is an array of those commands, and the program can reallocate it if necessary
 	s = malloc(sizeof(char) * BUF_SIZE);
 	comm = malloc(sizeof(char *) * max_lines);
 	for (i = 0; i < max_lines; i++)
 		comm[i] = malloc(sizeof(char) * BUF_SIZE);
-	
+
+	line = 0;
 	while (fgets(s, BUF_SIZE - 1, fp) != NULL)
 	{
 		tmp_len = strlen(s);
@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 		strncpy(comm[line], s, tmp_len - 5);
 		line++;
 
+		// If there are more lines than expected, realloc the array of commands
 		if (line >= max_lines)
 		{
 			max_lines = max_lines * 2;
@@ -62,7 +63,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Here starts the real command processing
-
+	// system implementation is straight-forward
 	if (flag == 0)
 	{
 		for (i = 0; i < line; i++)
@@ -71,6 +72,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	// exec is a bit more tricky, since I have to tokenize all the commands and
+	// their params. Thank you, cstring.h
 	// http://www.cplusplus.com/reference/cstring/strtok/
 	else if (flag == 1)
 	{
