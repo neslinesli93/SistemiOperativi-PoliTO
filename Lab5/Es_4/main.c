@@ -21,10 +21,6 @@ void manager(int sig)
 	{
 		return; //PLACEHOLDER
 	}
-	else if (sig == SIGCHLD)
-	{
-		return; // PLACEHOLDER
-	}
 }
 
 
@@ -54,12 +50,6 @@ int main(int argc, char *argv[])
 	}
 	
 	if (signal(SIGUSR2, manager) == SIG_ERR)
-	{
-		fprintf(stderr, "Signal error");
-		exit(1);
-	}
-
-	if (signal(SIGCHLD, manager) == SIG_ERR)
 	{
 		fprintf(stderr, "Signal error");
 		exit(1);
