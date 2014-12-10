@@ -83,8 +83,6 @@ int main(int argc, char *argv[])
 	// I need a way to stop both the processes from reading/writing without sync.
 	// As for the usr process, this is done automatically by the read(), since
 	// it is blocking; as for the dev process, I achieve that with signals
-
-	// N.B: See Es_2 for a nice way to avoid pause and signals: two pipes!
 	do
 	{
 		if (getpid() == dev_pid)
