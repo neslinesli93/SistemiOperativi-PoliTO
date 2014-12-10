@@ -39,7 +39,7 @@ void string_to_upper(char *s, int len)
 
 int main(int argc, char *argv[])
 {
-	int temp_fd, fdev, fusr, status, dr, dw, len, ready_to_print;
+	int temp_fd, fdev, fusr, status, dr, dw, len;
 	char *s;
 	pid_t dev_pid, usr_pid;
 
@@ -124,52 +124,25 @@ int main(int argc, char *argv[])
 			len = strlen(s) + 1;
 
 			lseek(temp_fd, 0, SEEK_SET);
-
 			dw = write(temp_fd, &len, sizeof(int));
-			if (dw == -1)
-			{
-				fprintf(stderr, "Error while writing to file: %d\n", errno);
-				continue;
-			}
-			
 			dw = write(temp_fd, s, len);
-			if (dw == -1)
-			{
-				fprintf(stderr, "Error while writing to file: %d\n", errno);
-				continue;
-			}
-			
+
 			kill(usr_pid, SIGUSR1);
 			pause();
 		}
 		else
 		{
 			pause();
-			ready_to_print = 1;
 
 			lseek(temp_fd, 0, SEEK_SET);
 			dr = read(temp_fd, &len, sizeof(int));
-			if (dr == -1)
-			{
-				fprintf(stderr, "Error while reading from file: %d\n", errno);
-				ready_to_print = 0;
-			}
-
 			dr = read(temp_fd, s, len);
-			if (dr == -1)
-			{
-				fprintf(stderr, "Error while reading from file: %d\n", errno);
-				ready_to_print = 0;
-			}
 
-			if (ready_to_print)
-			{
-				string_to_upper(s, len);
-				fprintf(stdout, "Converted: %s\n", s);
-				fflush(stdout);
-			}
-
+			string_to_upper(s, len);
+			fprintf(stdout, "Converted: %s\n", s);
+			fflush(stdout);
 			lseek(temp_fd, 0, SEEK_SET);
+
 			kill(dev_pid, SIGUSR2);
 		}
 	}
