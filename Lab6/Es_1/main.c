@@ -114,5 +114,7 @@ int main(int argc, char *argv[])
 	}
 	while (strcmp(s, END_STRING_LOW) != 0 && strcmp(s, END_STRING_UP) != 0);
 
+	free(s);
+
 	return 0;
 }

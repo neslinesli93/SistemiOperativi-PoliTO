@@ -78,6 +78,7 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+	free(c);
 
 	return 0;
 }
