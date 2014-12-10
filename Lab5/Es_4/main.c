@@ -17,10 +17,6 @@ void manager(int sig)
 	{
 		return; //PLACEHOLDER
 	}
-	else if (sig == SIGUSR2)
-	{
-		return; //PLACEHOLDER
-	}
 }
 
 
@@ -44,12 +40,6 @@ int main(int argc, char *argv[])
 	pid_t dev_pid, usr_pid;
 
 	if (signal(SIGUSR1, manager) == SIG_ERR)
-	{
-		fprintf(stderr, "Signal error");
-		exit(1);
-	}
-	
-	if (signal(SIGUSR2, manager) == SIG_ERR)
 	{
 		fprintf(stderr, "Signal error");
 		exit(1);
@@ -81,7 +71,7 @@ int main(int argc, char *argv[])
 			sleep(1);
 
 			kill(dev_pid, SIGUSR1);
-			kill(usr_pid, SIGUSR2);
+			kill(usr_pid, SIGUSR1);
 			
 			wait(&status);
 			wait(&status);
@@ -143,7 +133,7 @@ int main(int argc, char *argv[])
 			fflush(stdout);
 			lseek(temp_fd, 0, SEEK_SET);
 
-			kill(dev_pid, SIGUSR2);
+			kill(dev_pid, SIGUSR1);
 		}
 	}
 	while (strcmp(s, END_STRING_LOW) != 0 && strcmp(s, END_STRING_UP) != 0);
