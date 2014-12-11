@@ -60,7 +60,6 @@ int main(int argc, char *argv[])
 {
 	int n, i, len;
 	thread_params_t *v;
-	char *fin, *fout;
 	pthread_t *tids;
 	void *retVal;
 	
@@ -76,7 +75,7 @@ int main(int argc, char *argv[])
 	v  = malloc(sizeof(thread_params_t) * n);
 	tids = malloc(sizeof(pthread_t) * n);
 
-	for(i = 0; i < n; i++)
+	for (i = 0; i < n; i++)
 	{
 		v[i].fname_in = malloc(sizeof(char) * (strlen(argv[2] + len + 4 + 1)));
 		sprintf(v[i].fname_in, "%s%d.txt", argv[2], i);
@@ -90,7 +89,7 @@ int main(int argc, char *argv[])
 	for (i = 0; i < n; i++)
 		pthread_join(tids[i], &retVal);
 
-	for(i = 0; i < n; i++)
+	for (i = 0; i < n; i++)
 	{
 		free(v[i].fname_in);
 		free(v[i].fname_out);
