@@ -1,0 +1,114 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 08
+--------------------------------------
+
+Esercizio 01
+Script bash
+------------
+
+Realizzare uno script bash in grado di ricevere tre parametri
+sulla riga di comando:
+- il nome di una directory
+- il nome di una funzione
+- il nome di un file di uscita.
+
+Lo script deve:
+- ricercare all'interno di tutti i file nel sottoalbero
+  della directory specificata tutte le occorrenze della funzione
+- per ogni occorrenza deve stampare, nel file di uscita, il nome
+  del file, il numero di riga e la riga stessa
+- nel file di uscita le righe memorizzate vanno ordinate in base
+  al nome del file e al numero di riga.
+
+Si scrivano almeno due versioni dello script:
+la prima senza utilizzare e la seconda utilizzando il costrutto
+for-in.
+
+
+
+Esercizio 02
+Script bash
+------------
+
+Realizzare uno script bash che riceva in ingresso il nome di un file
+e stampi il numero di caratteri della linea piu' lunga e il numero di
+righe del file stesso.
+Si supponga che le righe del file non contengano spazi.
+
+
+
+Esercizio 03
+Script bash
+------------
+
+Realizzare uno script bash che riceva in ingresso il nome di un
+direttorio e rinomini tutti i file e tutti i direttori in esso
+contenuti, in modo che i nomi siano composti solo da lettere
+minuscole.
+
+
+
+Esercizio 04
+Script bash
+------------
+
+Un file contiene un testo ASCII di formato indefinito costituito da
+un certo numero di righe ciascuna delle quali formata da un certo
+numero di stringhe.
+
+Si scriva uno script bash in grado di visualizzare su standard output
+la frequenza assoluta di tutte le stringhe presenti nel file.
+
+Esempio
+Sia il file di ingresso il seguente:
+
+prova
+questo file e' un file di prova
+per prova
+
+Occorre visualizzare (in qualunque ordine)
+
+questo 1
+file 2
+e' 1
+un 1
+di 1
+per 1
+prova 3
+
+Il nome del file di ingresso sia specificato sulla riga di comando,
+e nel caso non sia presente sulla riga di comando, venga letto da
+tastiera.
+
+Suggerimenti:
+- si utilizzino due vettori, uno per la memorizzazione delle parole
+  e uno per la memorizzazione delle relative frequenza assolute.
+- si leggano le stringhe del file con il costrutto for-in + cat.
+
+
+
+Esercizio 05
+Script bash
+------------
+
+Uno script bash riceve due parametri:
+* il nome di un processo
+* un intervallo di tempo.
+Esso deve verificare a intervalli di tempo pari a quello
+specificato se il processo indicato e' ancora presente nel
+sistema.
+Se il processo rimane nello stato Z per piu' di 5 verifiche
+successive, lo script lo deve terminare.
+
+Suggerimento.
+Il comando
+ps -el
+fornisce l'output seguente
+
+UID  PID PPID F    CPU PRI NI RSS  S  ADDR    TTY TIME    CMD
+  0   1  0    4000 0   31  0   568 Ss 6fd9cd4 ??  0:00.20 /sbin/launchd
+  0  10  1    4000 0   31  0  1292 R+ 6fd9384 ??  0:00.59 /usr/libexec/kextd
+  0  11  1    4000 0   31  0  3412 Z  6fd982c ??  0:02.10 /bin/ls
