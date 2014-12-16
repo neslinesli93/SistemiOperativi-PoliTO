@@ -7,5 +7,4 @@ if [ $# -ne 3 ]; then
 fi
 
 matches=`grep -H -n $2 $1*`
-echo $matches > $3
-cat $3 | sort -k 1 -o $3
+echo cat $matches | sort -k 1 -o $3
