@@ -1,0 +1,148 @@
+Laurea in Ingegneria Informatica
+Corso di Sistemi Operativi
+Esercizi proposti per il laboratorio
+ 
+Esercitazione di laboratorio numero 10
+--------------------------------------
+
+Esercizio 01
+------------
+
+Dopo aver eventualmente rediretto su un file l'output del
+comando
+ps -el
+eseguire le operazioni indicate di seguito, utilizzando
+esclusivamente costrutti AWK, a meno che non venga specificato
+altrimenti.
+A scelta, si operi direttamente sull'output del comando oppure
+sul file generato dal comando stesso.
+
+a. stampare il nome del processo di inizializzazione,
+   ovvero del primo processo eseguito all'avvio del sistema
+   operativo (quello di PID 1).
+   Eseguire questa operazione direttamente da riga di
+   comando, senza usare un file di script.
+
+b. stampare il nome e il PID dei processi che sono nello
+   stato R o R+ (Running).
+   Utilizzare un file di script.
+
+c. modificare lo script precedente in modo da stampare il
+   risultato ordinato in ordine crescente numerico di
+   PID.
+
+d. realizzare il punto precedente ma questa volta potendo
+   combinare AWK e bash.
+
+
+
+Esercizio 02
+------------
+
+Realizzare uno script in grado di
+* ricevere un intero come parametro
+* stampare il nome e lo stato del processo il cui PID e'
+  stato ricevuto come parametro.
+Lo script deve utilizzare BASH e AWK nel seguente modo:
+
+* lo script bash riceve su riga di comando un numero intero,
+  controlla il corretto passaggio del parametro, e richiama
+  i comandi ps e awk opportunamente
+ 
+* lo script AWK prende come variabile il PID passato dallo
+  script bash e stampa il risultato desiderato.
+  Si supponga ovviamente di conoscere il formato dell'output
+  di ps all'interno dello script awk.
+
+
+
+Esercizio 03
+------------
+
+Realizzare uno script bash e AWK che prenda in input il
+giorno di un anno qualsiasi (nel formato gg mm yyyy) e
+stampi a quale giorno della settimana corrisponde.
+
+Suggerimento
+
+Si usi il comando "cal" oppure in alternativa il comando
+"ncal".
+Ad esempio, il comando cal (informazioni con "man cal")
+produce il seguente output:
+
+> cal 02 2013
+   February 2013
+Su Mo Tu We Th Fr Sa
+                1  2
+ 3  4  5  6  7  8  9
+10 11 12 13 14 15 16
+17 18 19 20 21 22 23
+24 25 26 27 28
+
+
+
+Esercizio 04
+------------
+
+Sia dato un file contenente un vocabolario con il seguente
+formato:
+
+parola1:
+traduzione1
+traduzione2
+traduzione3
+...
+#
+parola2:
+traduzione1
+traduzione2
+traduzione3
+...
+#
+...
+
+In esso a ogni parola (parola1, parola2, etc.) sono associate
+un certo numero di traduzioni (traduzione1, traduzione2, etc.).
+
+Realizzare uno script bash e AWK di nome traduci.sh che possa
+essere eseguito con il seguente comando
+
+traduci.sh [options] vocabolario fileDaTradurre fileProdotto
+
+dove
+* il primo parametro (vocabolario) specifica il nome di un
+  file contenemte un vocabolario con il formato precedente
+* il secondo parametro (fileDaTradurre) indica il nome di
+  un file contenente il testo da tradurre
+* il terzo parametro (fileProdotto) indica il nome del
+  file contenente la traduzione del testo seguendo il
+  vocabolario indicato
+* le opzioni sono le seguenti
+  * -h | --help
+    deve stampare un messaggio con la spiegazione della
+    sintassi e uscire;
+  * -l | --longest
+    lo script deve sostituire ogni parola del secondo
+    file con la traduzione piu' lunga che si trova nel
+    primo file (questo e' anche il comportamento di
+    default)
+  * -s | --shortest
+    lo script deve sostituire ogni parola del secondo
+    file con la traduzione piu' corta che si trova nel
+    primo file
+  * -n Num
+    lo script deve sostituire ogni parola del secondo
+    file con la traduzione di posizione Num che si trova
+    nel primo file
+  * -v | --verbose
+    per ogni parola di cui non si trova una traduzione lo
+    script deve riscriverla non tradotta.
+    Nel caso sia specificata quest'opzione, lo
+    script deve stampare a video un messaggio di warning
+    (di default invece non stampa niente).
+
+I file
+l09e04testo.txt
+l09e04vocabolario.txt
+includono un esempio di vocabolario e di testo utilizzabili
+per verificare il funzionamento del programma.
